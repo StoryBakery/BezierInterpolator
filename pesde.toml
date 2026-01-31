@@ -1,14 +1,21 @@
 name = "story_bakery/bezier_interpolator"
-version = "0.1.0"
+version = "0.1.1"
 license = "MIT"
-includes = ["pesde.toml", "LICENSE", "README.md", ".pesde/scripts/roblox_sync_config_generator.luau", ".pesde/scripts/sourcemap_generator.luau", "src/**/*.luau", "src/**/*.json", "tests/**/*.luau"]
+includes = [
+    "pesde.toml",
+    "LICENSE",
+    "README.md",
+    ".pesde/scripts/roblox_sync_config_generator.luau",
+    ".pesde/scripts/sourcemap_generator.luau",
+    "src/**/*.luau",
+    "src/**/*.json",
+    "tests/**/*.luau",
+]
 
 [target]
 environment = "roblox"
 lib = "src/BezierInterpolator.luau"
-build_files = [
-    "src",
-]
+build_files = ["src"]
 
 [indices]
 default = "https://github.com/pesde-pkg/index"
@@ -21,3 +28,6 @@ roblox_sync_config_generator = ".pesde/scripts/roblox_sync_config_generator.luau
 [engines]
 pesde = "^0.7.0"
 lune = "^0.10.2"
+
+[dev_dependencies]
+setup-project-configs = { repo = "https://github.com/StoryBakery/setup-project-configs", rev = "8e77c9722c25b0a4ea6ed1415ab18fc8db2ff9e2" }

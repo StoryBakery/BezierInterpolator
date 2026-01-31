@@ -9,8 +9,6 @@ local BezierInterpolator = {}
 BezierInterpolator.__index = BezierInterpolator
 BezierInterpolator.__type = "BezierInterpolator"
 
---#region Types
-
 --[=[
 	@interface ControlPoint
 	@within BezierInterpolator
@@ -44,14 +42,10 @@ export type PartialControlPoint = {
 
 export type BezierInterpolator = setmetatable<{
 	--[=[
-		@prop BezierInterpolator.ControlPoints {ControlPoint}
-		
 		보간이 사용하는 컨트롤 포인트 배열입니다. `from*` 생성 함수를 통해 채워집니다.
 	]=]
 	ControlPoints: { ControlPoint },
 }, typeof(BezierInterpolator)>
-
---#endregion Types
 
 local function cubicBezier(t: number, p0: number, p1: number, p2: number, p3: number): number
 	local mt = 1 - t
@@ -60,8 +54,6 @@ local function cubicBezier(t: number, p0: number, p1: number, p2: number, p3: nu
 
 	return (mt2 * mt * p0) + (3 * mt2 * t * p1) + (3 * mt * t2 * p2) + (t2 * t * p3)
 end
-
---#region Constructors
 
 --[=[
 	모든 핸들이 채워진 컨트롤 포인트 배열로 BezierInterpolator를 생성합니다.
@@ -97,13 +89,7 @@ function BezierInterpolator.fromFloats(values: { number }): BezierInterpolator
 	return BezierInterpolator.fromPartialControlPoints(partialControlPoints)
 end
 
---#endregion Constructors
-
---#region Methods
-
 --[=[
-	@within BezierInterpolator
-	@method GetValueAtProgress
 	진행도(progress)를 입력받아 0~1 범위 내에서 보간된 값을 계산합니다.
 	@param progress number -- 0.0~1.0 범위의 진행도.
 	@return number -- 보간 결과 값.
@@ -151,13 +137,7 @@ function BezierInterpolator:GetValueAtProgress(progress: number): number
 	return cubicBezier(tInSegment, p0, p1, p2, p3)
 end
 
---#endregion Methods
-
---#region Functions
-
 --[=[
-	@within BezierInterpolator
-	@function FillControlPointHandles
 	핸들이 비어 있는 컨트롤 포인트 배열을 자동 규칙에 따라 채웁니다.
 	@param partialControlPoints {PartialControlPoint} -- 자동으로 보완할 포인트 배열.
 	@return {ControlPoint} -- 채워진 컨트롤 포인트 배열.
@@ -213,7 +193,4 @@ function BezierInterpolator.FillControlPointHandles(partialControlPoints: { Part
 	return filledPoints
 end
 
---#endregion Functions
-
---[[ 모듈 반환부 ]]
 return BezierInterpolator
